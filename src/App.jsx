@@ -20,7 +20,8 @@ function App() {
   const { loadEvents, setCurrentDate } = useContext(StateContext)
 
   useEffect(() => {
-    axios.get('https://mindhub-xj03.onrender.com/api/amazing')
+    // axios.get('https://mindhub-xj03.onrender.com/api/amazing')
+    axios.get('http://localhost:3000/api/events')
       .then(response => {
         setData(true)
         setCurrentDate(response.data.currentDate)
@@ -41,7 +42,7 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path='/' element={<Home typeOfEvents = {'all'} />} />
+        <Route path='/' element={<Home typeOfEvents={'all'} />} />
         <Route path='/past' element={<Home typeOfEvents={'past'} />} />
         <Route path='/upcoming' element={<Home typeOfEvents={'upcoming'} />} />
         <Route path='/details/:id' element={<Details />} />
