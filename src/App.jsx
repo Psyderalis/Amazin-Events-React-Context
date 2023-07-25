@@ -11,6 +11,8 @@ import NotFound from './pages/NotFound'
 import Stats from './pages/Stats'
 import Details from './pages/Details'
 import Contact from './pages/Contact'
+import Login from './pages/Login'
+import Register from './pages/Register'
 import StateContext from './store/StateContext'
 
 function App() {
@@ -48,6 +50,8 @@ function App() {
         <Route path='/details/:id' element={<Details />} />
         <Route path='/stats' element={<Stats />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </>
