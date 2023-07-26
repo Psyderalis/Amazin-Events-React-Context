@@ -1,18 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Login = ({ isUserLogged }) => {
 
   const emailRef = useRef()
   const passwordRef = useRef()
   const [message, setMessage] = useState('')
-  const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   // if(isUserLogged) window.location.href = '/' 
-  //   if(isUserLogged) navigate('/')
-  // })
 
   const login = () => {
 

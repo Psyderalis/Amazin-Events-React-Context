@@ -40,7 +40,6 @@ function App() {
 
   const getLogged = () => {
     axios.get('http://localhost:3000/api/auth/logged')
-      // .then(() => window.location.href = '/')
       .then(() => setIsUserLogged(true))
       .catch(error => console.log(error))
   }
