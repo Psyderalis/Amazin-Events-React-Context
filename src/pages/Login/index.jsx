@@ -1,12 +1,18 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = ({ isUserLogged }) => {
 
   const emailRef = useRef()
   const passwordRef = useRef()
   const [message, setMessage] = useState('')
+  const navigate = useNavigate()
+
+  // useEffect(() => {
+  //   // if(isUserLogged) window.location.href = '/' 
+  //   if(isUserLogged) navigate('/')
+  // })
 
   const login = () => {
 
@@ -16,7 +22,7 @@ const Login = () => {
       .then(response => {
         console.log(response.data)
         window.location.href = '/'
-        })
+      })
       .catch(error => {
         console.log(error.response)
         setMessage(error.response.data.message)
@@ -28,6 +34,13 @@ const Login = () => {
     // console.log(`Form Data: { email: ${emailRef.current.value}, password: ${passwordRef.current.value} }`)
     login()
   }
+
+  if (isUserLogged) return (
+    <>
+      <h3>Ya se ha iniciado sesión.</h3>
+      <Link to={'/'}>Ir a HOME</Link>
+    </>
+  )
 
   return (
     <div>

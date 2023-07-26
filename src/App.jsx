@@ -18,14 +18,13 @@ import StateContext from './store/StateContext'
 function App() {
 
   // const [data, setData] = useState(null)
+  const [isUserLogged, setIsUserLogged] = useState(false)
 
   const { loadEvents, setCurrentDate } = useContext(StateContext)
   const navigate = useNavigate()
 
-  useEffect(() => {
+  const getEvents = () => {
     // axios.get('https://mindhub-xj03.onrender.com/api/amazing')
-    
-    axios.defaults.withCredentials = true
 
     axios.get('http://localhost:3000/api/events')
       .then(response => {
@@ -37,8 +36,22 @@ function App() {
         console.log(error.response)
         navigate('/login')
       })
+  }
+
+  const getLogged = () => {
+    axios.get('http://localhost:3000/api/auth/logged')
+      // .then(() => window.location.href = '/')
+      .then(() => setIsUserLogged(true))
+      .catch(error => console.log(error))
+  }
+
+  useEffect(() => {
+    axios.defaults.withCredentials = true
+
+    getLogged()
+    getEvents()
+    
   }, [])
-  
 
   // if (!data) {
   //   return (
@@ -50,7 +63,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header isUserLogged={isUserLogged} />
       <Routes>
         <Route path='/' element={<Home typeOfEvents={'all'} />} />
         <Route path='/past' element={<Home typeOfEvents={'past'} />} />
@@ -58,7 +71,7 @@ function App() {
         <Route path='/details/:id' element={<Details />} />
         <Route path='/stats' element={<Stats />} />
         <Route path='/contact' element={<Contact />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login isUserLogged={isUserLogged} />} />
         <Route path='/register' element={<Register />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

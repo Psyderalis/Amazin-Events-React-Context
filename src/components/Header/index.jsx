@@ -5,7 +5,7 @@ import { useState } from 'react'
 import axios from 'axios';
 
 
-const Header = () => {
+const Header = ({ isUserLogged }) => {
 
   const [showMenu, setShowMenu] = useState(false)
 
@@ -27,8 +27,8 @@ const Header = () => {
     <header>
       <div className='title-menu'>
         <h3>Amazing Events ✨</h3>
-        <p onClick={toggleMenu} className='menu-btn'>Menú</p>
-        <p onClick={logout} className='menu-btn'>Cerrar sesión</p>
+        {isUserLogged && <p onClick={toggleMenu} className='menu-btn'>Menú</p>}
+        {isUserLogged && <p onClick={logout} className='menu-btn'>Cerrar sesión</p>}
       </div>
 
       <Nav showMenu={showMenu} />
