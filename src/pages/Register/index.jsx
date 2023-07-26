@@ -20,57 +20,60 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Nombre de usuario:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-      </div>
+    <div>
+      <h3>Registre usuario</h3>
+      <form onSubmit={handleSubmit} className='contact-form'>
+        <div>
+          <label htmlFor="username">Nombre de usuario:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <div>
-        <label htmlFor="email">Correo electrónico:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-      </div>
+        <div>
+          <label htmlFor="email">Correo electrónico:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <div>
-        <label htmlFor="password">Contraseña:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-      </div>
+        <div>
+          <label htmlFor="password">Contraseña:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <div>
-        <label htmlFor="role">Rol:</label>
-        <input
-          type="role"
-          id="role"
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          required
-        />
-      </div>
+        <div>
+          <label htmlFor="role">Rol:</label>
+          <input
+            type="role"
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-      <button type="submit">Registrar usuario</button>
-    </form>
+        <button type="submit">Registrar usuario</button>
+      </form>
+    </div>
   )
 }
 

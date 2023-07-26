@@ -1,7 +1,7 @@
 import './App.css'
 
 import axios from 'axios'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useContext, useEffect } from 'react'
 import { useState } from 'react'
 
@@ -17,28 +17,36 @@ import StateContext from './store/StateContext'
 
 function App() {
 
-  const [data, setData] = useState(null)
+  // const [data, setData] = useState(null)
 
   const { loadEvents, setCurrentDate } = useContext(StateContext)
+  const navigate = useNavigate()
 
   useEffect(() => {
     // axios.get('https://mindhub-xj03.onrender.com/api/amazing')
+    
+    axios.defaults.withCredentials = true
+
     axios.get('http://localhost:3000/api/events')
       .then(response => {
-        setData(true)
+        // setData(true)
         setCurrentDate(response.data.currentDate)
         loadEvents(response.data.events)
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error.response)
+        navigate('/login')
+      })
   }, [])
+  
 
-  if (!data) {
-    return (
-      <main>
-        <h1 className='loading'>Cargando...</h1>
-      </main>
-    )
-  }
+  // if (!data) {
+  //   return (
+  //     <main>
+  //       <h1 className='loading'>Cargando...</h1>
+  //     </main>
+  //   )
+  // }
 
   return (
     <>
