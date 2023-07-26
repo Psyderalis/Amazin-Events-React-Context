@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
 
@@ -51,7 +52,8 @@ const Login = () => {
         </div>
         <button type="submit">Iniciar sesión</button>
       </form>
-      <p>{message}</p>
+      <h3>{message}</h3>
+      <Link to={'/register'}>REGISTRARSE</Link>
     </div>
   );
 }

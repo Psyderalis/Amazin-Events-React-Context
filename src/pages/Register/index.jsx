@@ -1,23 +1,39 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    role: ''
-  })
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value })
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const usernameRef = useRef()
+  const roleRef = useRef()
+
+  const [message, setMessage] = useState('')
+
+  const register = () => {
+    axios.defaults.withCredentials = true
+
+    axios.post('http://localhost:3000/api/users', {
+      username: usernameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      role: roleRef.current.value
+    })
+      .then(response => {
+        console.log(response.data)
+        setMessage(response.data.message)
+      })
+      .catch(error => {
+        console.log(error.response)
+        setMessage(error.response.data.message)
+      })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Aquí puedes agregar la lógica para enviar los datos al servidor o hacer otras acciones
-    console.log('Form data:', formData)
-  };
+    register()
+  }
 
   return (
     <div>
@@ -27,10 +43,8 @@ const Register = () => {
           <label htmlFor="username">Nombre de usuario:</label>
           <input
             type="text"
-            id="username"
             name="username"
-            value={formData.username}
-            onChange={handleChange}
+            ref={usernameRef}
             required
           />
         </div>
@@ -39,10 +53,8 @@ const Register = () => {
           <label htmlFor="email">Correo electrónico:</label>
           <input
             type="email"
-            id="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            ref={emailRef}
             required
           />
         </div>
@@ -51,10 +63,8 @@ const Register = () => {
           <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
-            id="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            ref={passwordRef}
             required
           />
         </div>
@@ -63,16 +73,15 @@ const Register = () => {
           <label htmlFor="role">Rol:</label>
           <input
             type="role"
-            id="role"
             name="role"
-            value={formData.role}
-            onChange={handleChange}
+            ref={roleRef}
             required
           />
         </div>
-
         <button type="submit">Registrar usuario</button>
       </form>
+      <h3>{message}</h3>
+      <Link to={'/login'}>INICIAR SESIÓN</Link>
     </div>
   )
 }
