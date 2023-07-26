@@ -1,10 +1,11 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import axios from 'axios'
 
 const Login = () => {
 
   const emailRef = useRef()
   const passwordRef = useRef()
+  const [message, setMessage] = useState('')
 
   const login = () => {
 
@@ -15,14 +16,15 @@ const Login = () => {
         console.log(response.data)
         window.location.href = '/'
         })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error.response)
+        setMessage(error.response.data.message)
+      })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-
     // console.log(`Form Data: { email: ${emailRef.current.value}, password: ${passwordRef.current.value} }`)
-
     login()
   }
 
@@ -47,9 +49,9 @@ const Login = () => {
             name="password"
             required />
         </div>
-
         <button type="submit">Iniciar sesión</button>
       </form>
+      <p>{message}</p>
     </div>
   );
 }
